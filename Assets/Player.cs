@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class controller : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public float moveSpeed = 10;   // Movement Speed Multiplier
     public float collisionOffset = 0.05f;
@@ -10,6 +10,7 @@ public class controller : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 inputVector = new Vector2();
+    private bool facingRight = true;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
     // Start is called before the first frame update
@@ -22,6 +23,13 @@ public class controller : MonoBehaviour
     void Update()
     {
         inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        // If the input is moving the player right and the player is facing left
+        if (inputVector.x > 0 && !facingRight)
+            Flip();
+        // If the input is moving the player left and the player is facing right
+        else if (inputVector.x < 0 && facingRight)
+            Flip();
     }
 
     void FixedUpdate()
@@ -70,5 +78,15 @@ public class controller : MonoBehaviour
 
             return false;
         }
+    }
+
+    public void Flip()
+    {
+        facingRight = !facingRight;
+
+        // Multiply the player's x local scale by -1
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
