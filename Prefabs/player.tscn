@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsqp8x1onnqho"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_5xxeb"]
+[ext_resource type="Texture2D" uid="uid://d2cu4fxbl3uxh" path="res://Assets/wonderful.png" id="2_8ft75"]
+[ext_resource type="Texture2D" uid="uid://dljsgj0xh20jx" path="res://Assets/cursor.png" id="3_dx188"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pddlc"]
+size = Vector2(10, 28)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(40, 111)
+script = ExtResource("1_5xxeb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.117188, 0.117188)
+texture = ExtResource("2_8ft75")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_pddlc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Fulcrum" type="Node2D" parent="."]
+
+[node name="Cursor" type="Sprite2D" parent="Fulcrum"]
+texture_filter = 1
+position = Vector2(20, 0)
+rotation = 1.5708
+scale = Vector2(0.41023, 0.41023)
+texture = ExtResource("3_dx188")
